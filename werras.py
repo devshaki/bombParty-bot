@@ -5,14 +5,16 @@ from selenium import webdriver
 from time import sleep
 import requests
 import keyboard
+import webdriver_manager
 from selenium.webdriver.common.by import By
 from webdriver_manager.firefox import GeckoDriverManager
 import pyautogui
 a = str(requests.get("http://norvig.com/ngrams/sowpods.txt").content).split("\\n")
 
+pos = 810, 566
 driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
 def work():
-    pyautogui.doubleClick(810, 566)
+    pyautogui.doubleClick(pos)
     pyautogui.keyDown("ctrl")
     pyautogui.press("c")
     pyautogui.keyUp("ctrl")
@@ -31,7 +33,7 @@ def work():
                 break
 
 def help():
-    pyautogui.doubleClick(810, 566)
+    pyautogui.doubleClick(pos)
     pyautogui.keyDown("ctrl")
     pyautogui.press("c")
     pyautogui.keyUp("ctrl")
@@ -48,22 +50,25 @@ def help():
                 pyautogui.press("Enter")
                 used.append(a[i])
                 break
+def getPos():
+    pos = pyautogui.position()
 
 
 driver.get("https://jklm.fun")
 
-
 driver.maximize_window()
 
 
-while True:  
-    try:  
-        if keyboard.is_pressed('home'): 
+while True:
+    try:
+        if keyboard.is_pressed('home'):
             work()
         if keyboard.is_pressed('end'):
             help()
         if keyboard.is_pressed('delete'):
             used.clear()
+        if keyboard.is_pressed('f4'):
+            getPos()
 
     except:
         pass
